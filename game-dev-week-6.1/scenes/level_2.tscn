@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://bixh0e47omeoq"]
 
 [ext_resource type="Texture2D" uid="uid://dq7mpdsut6o3q" path="res://images/tilemap.png" id="1_3bmlt"]
+[ext_resource type="Texture2D" uid="uid://b6xv7nfa6bxkd" path="res://images/thumb-1920-966315.png" id="1_6cvei"]
 [ext_resource type="Script" uid="uid://ct23yq7e7xmwy" path="res://scripts/fall_area.gd" id="2_jm1iu"]
 [ext_resource type="Script" uid="uid://dgepn5sl7pyrk" path="res://scripts/NO_ENTER.gd" id="3_eqxsl"]
 [ext_resource type="Texture2D" uid="uid://bf8xj8iju452a" path="res://images/rope.png" id="4_b4j7a"]
@@ -169,6 +170,16 @@ size = Vector2(25, 64)
 size = Vector2(20, 30)
 
 [node name="Level2" type="Node2D" unique_id=1631237414]
+
+[node name="Thumb1920966316" type="Sprite2D" parent="." unique_id=931423171]
+z_index = -1
+position = Vector2(1214, 41)
+texture = ExtResource("1_6cvei")
+
+[node name="Thumb1920966315" type="Sprite2D" parent="." unique_id=1099959374]
+z_index = -1
+position = Vector2(2835, 41)
+texture = ExtResource("1_6cvei")
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=1429170597 groups=["SpawnPoint"]]
 position = Vector2(488, 334)

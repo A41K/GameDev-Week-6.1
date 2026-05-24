@@ -1,5 +1,13 @@
 extends Control
 
+@onready var server_button: Button = $CenterContainer/VBoxContainer/MarginContainer/ButtonsVBox/Server
+@onready var client_button: Button = $CenterContainer/VBoxContainer/MarginContainer/ButtonsVBox/Client
+
+func _ready() -> void:
+	if OS.has_feature("web"):
+		server_button.disabled = true
+		server_button.text = "HOST GAME (EXE ONLY)"
+
 func _on_server_pressed() -> void:
 	if HighLevelNetworkHandler.start_server() != OK:
 		return

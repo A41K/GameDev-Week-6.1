@@ -1,7 +1,10 @@
 extends Node
 
 const PORT = 7777
-const MAX_PLAYERS = 4
+const HOST = "127.0.0.1"
+
+func _client_url() -> String:
+	return "ws://%s:%d" % [HOST, PORT]
 
 func _ready():
 	if OS.has_feature("server"):
@@ -10,8 +13,8 @@ func _ready():
 		start_client()
 
 func start_server():
-	var peer = ENetMultiplayerPeer.new()
-	var err = peer.create_server(PORT, MAX_PLAYERS)
+	var peer = WebSocketMultiplayerPeer.new()
+	var err = peer.create_server(PORT)
 	if err != OK:
 		push_error("failed to start server: %s" % err)
 		return
@@ -24,8 +27,8 @@ func start_server():
 	print("server started on port %d" % PORT)
 
 func start_client():
-	var peer = ENetMultiplayerPeer.new()
-	var err = peer.create_client("127.0.0.1", PORT)
+	var peer = WebSocketMultiplayerPeer.new()
+	var err = peer.create_client(_client_url())
 	if err != OK:
 		push_error("failed to create client: %s" % err)
 		return
