@@ -5,7 +5,10 @@ In the game the two players need to work together in the 2 levels to be able to 
 
 A few important hings beforehand.
 You need to click the host button first and then join cause the multiplayer is a little jank
-You need to step of the pressure plate for the other player to stand on the other (You will understand when you play it)
+
+You need to step off the pressure plate for the other player to stand on the other (You will understand when you play it)
+
+I also recommend playing it in the EXE cause the web version is a little weird and sometimes doesnt work
 
 And also heres a picture
 <img width="1152" height="648" alt="image" src="https://github.com/user-attachments/assets/84c05ed0-5074-4056-990d-72226d43f7c8" />
