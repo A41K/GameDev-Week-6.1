@@ -6,62 +6,81 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
 size = Vector2(38, 37.99997)
 
-[node name="Player" type="Node2D" unique_id=1843244957]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_g2els"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=76696698]
+[node name="Player" type="CharacterBody2D" unique_id=76696698]
 z_index = -1
-position = Vector2(27, -5)
+position = Vector2(19, -12)
 script = ExtResource("1_g2els")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1356852345]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1356852345]
 position = Vector2(7.6293945e-06, 30.000004)
 scale = Vector2(0.2968752, 0.2968752)
 texture = ExtResource("2_qhqgy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=192425017]
+[node name="NameLabel" type="Label" parent="." unique_id=2137465821]
+offset_left = -19.0
+offset_top = -5.0
+offset_right = 19.0
+offset_bottom = 9.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 10
+text = "Player"
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=192425017]
 position = Vector2(3.0517578e-05, 30)
 shape = SubResource("RectangleShape2D_dqkch")
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=495138908]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=495138908]
 position = Vector2(3.0517578e-05, 13.999977)
 zoom = Vector2(2.5, 2.5)
 
-[node name="CoyoteTimer" type="Timer" parent="Player" unique_id=1703445450]
+[node name="CoyoteTimer" type="Timer" parent="." unique_id=1703445450]
 wait_time = 0.1
 one_shot = true
 
-[node name="JumpBufferTimer" type="Timer" parent="Player" unique_id=1790298347]
+[node name="JumpBufferTimer" type="Timer" parent="." unique_id=1790298347]
 wait_time = 0.12
 one_shot = true
 
-[node name="Left_HeadNudge" type="RayCast2D" parent="Player" unique_id=170627048]
+[node name="Left_HeadNudge" type="RayCast2D" parent="." unique_id=170627048]
 position = Vector2(-9.9999695, 14)
 target_position = Vector2(0, -4)
 
-[node name="Left_HeadNudge2" type="RayCast2D" parent="Player" unique_id=525609854]
+[node name="Left_HeadNudge2" type="RayCast2D" parent="." unique_id=525609854]
 position = Vector2(-15.9999695, 14)
 target_position = Vector2(0, -4)
 
-[node name="Right_HeadNudge" type="RayCast2D" parent="Player" unique_id=1545051112]
+[node name="Right_HeadNudge" type="RayCast2D" parent="." unique_id=1545051112]
 position = Vector2(10.0000305, 14)
 target_position = Vector2(0, -4)
 
-[node name="Right_HeadNudge2" type="RayCast2D" parent="Player" unique_id=657372286]
+[node name="Right_HeadNudge2" type="RayCast2D" parent="." unique_id=657372286]
 position = Vector2(16.00003, 14)
 target_position = Vector2(0, -4)
 
-[node name="Left_LedgeHop" type="RayCast2D" parent="Player" unique_id=1935409412]
+[node name="Left_LedgeHop" type="RayCast2D" parent="." unique_id=1935409412]
 position = Vector2(-15.9999695, 45)
 target_position = Vector2(-6, 0)
 
-[node name="Left_LedgeHop2" type="RayCast2D" parent="Player" unique_id=1056020103]
+[node name="Left_LedgeHop2" type="RayCast2D" parent="." unique_id=1056020103]
 position = Vector2(-15.9999695, 39)
 target_position = Vector2(-6, 0)
 
-[node name="Right_LedgeHop" type="RayCast2D" parent="Player" unique_id=1437072400]
+[node name="Right_LedgeHop" type="RayCast2D" parent="." unique_id=1437072400]
 position = Vector2(16.00003, 45)
 target_position = Vector2(6, 0)
 
-[node name="Right_LedgeHop2" type="RayCast2D" parent="Player" unique_id=85650317]
+[node name="Right_LedgeHop2" type="RayCast2D" parent="." unique_id=85650317]
 position = Vector2(16.00003, 39)
 target_position = Vector2(6, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1481246394]
+replication_config = SubResource("SceneReplicationConfig_g2els")

@@ -2,6 +2,7 @@ class_name Player extends CharacterBody2D
 
 @onready var CoyoteTimer: Timer = $CoyoteTimer
 @onready var JumpBufferTimer: Timer = $JumpBufferTimer
+@onready var NameLabel: Label = $NameLabel
 
 const TOUCH_LEFT_MAX: float = 0.35
 const TOUCH_RIGHT_MIN: float = 0.65
@@ -15,15 +16,38 @@ var _touch_action_counts: Dictionary = {
 var _is_mobile: bool = false
 
 var coyote_time_activated: bool = false
-var spawn_position: Vector2
+var respawn_position: Vector2
 
+func _enter_tree() -> void:
+	var authority_id := _get_authority_id()
+	set_multiplayer_authority(authority_id)
+	$MultiplayerSynchronizer.set_multiplayer_authority(authority_id)
 
 func _ready() -> void:
 	add_to_group("player")
-	spawn_position = global_position
+	NameLabel.text = _get_display_name()
+	if is_multiplayer_authority():
+		$Camera2D.make_current()
+	respawn_position = _get_respawn_position()
 	_is_mobile = OS.has_feature("mobile") or OS.has_feature("android") or OS.has_feature("ios")
 	if _is_mobile:
 		_create_mobile_controls()
+
+
+func _get_authority_id() -> int:
+	var parsed_id: int = name.to_int()
+	if parsed_id != 0:
+		return parsed_id
+
+	return name.replace("Player_", "").to_int()
+
+
+func _get_display_name() -> String:
+	var authority_id: int = _get_authority_id()
+	if authority_id != 0:
+		return "Player %d" % authority_id
+
+	return str(name)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -122,7 +146,32 @@ func _exit_tree() -> void:
 		if _touch_action_counts[action] > 0:
 			Input.action_release(action)
 
+
+func set_respawn_position(position: Vector2) -> void:
+	respawn_position = position
+
+
+func _get_respawn_position() -> Vector2:
+	var search_root := get_tree().current_scene if get_tree().current_scene else get_tree().root
+	if search_root:
+		var preferred_spawn_name: String = "SpawnPoint" if _get_authority_id() == 1 else "SpawnPoint2"
+		var preferred_spawn := search_root.find_child(preferred_spawn_name, true, false) as Node2D
+		if preferred_spawn:
+			return preferred_spawn.global_position
+
+		var fallback_spawn := search_root.find_child("SpawnPoint", true, false) as Node2D
+		if fallback_spawn:
+			return fallback_spawn.global_position
+
+		var secondary_fallback_spawn := search_root.find_child("SpawnPoint2", true, false) as Node2D
+		if secondary_fallback_spawn:
+			return secondary_fallback_spawn.global_position
+
+	return global_position
+
+@rpc("any_peer", "call_remote", "reliable")
 func respawn() -> void:
+	global_position = respawn_position
 	velocity = Vector2.ZERO
 	gravity = 20.0
 	coyote_time_activated = false
@@ -143,6 +192,8 @@ const friction: float = 20
 func _physics_process(delta: float) -> void:
 	var x_input: float = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var velocity_weight: float = delta * (acceleration if x_input else friction)
+	
+	if !is_multiplayer_authority(): return
 	
 	velocity.x = lerp(velocity.x, x_input * max_speed, velocity_weight)
 	if is_wall_sticking:
@@ -193,23 +244,3 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 0
 	
 	move_and_slide()
-
-
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	pass # Replace with function body.
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
-
-
-func _on_spike_2_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
-
-
-func _on_flag_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
-
-
-func _on_nextscene_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.

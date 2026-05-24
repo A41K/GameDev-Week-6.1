@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://bfwjqdt8b4675"]
+
+[ext_resource type="Script" uid="uid://ycqojypd030d" path="res://scripts/high_level_ui.gd" id="1_qyuap"]
+
+[node name="TitleScreen" type="Control" unique_id=1779052383]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qyuap")
+
+[node name="Background" type="ColorRect" parent="." unique_id=82856899]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.141176, 0.160784, 0.211765, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=108962074]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1629004715]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1709330763]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 64
+text = "PLATFORMER"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/VBoxContainer" unique_id=1611857402]
+layout_mode = 2
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="ButtonsVBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer/MarginContainer" unique_id=203875128]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Server" type="Button" parent="CenterContainer/VBoxContainer/MarginContainer/ButtonsVBox" unique_id=576963904]
+custom_minimum_size = Vector2(300, 65)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "HOST GAME"
+
+[node name="Client" type="Button" parent="CenterContainer/VBoxContainer/MarginContainer/ButtonsVBox" unique_id=25186137]
+custom_minimum_size = Vector2(300, 65)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "JOIN GAME"
+
+[node name="Title" type="Label" parent="." unique_id=765261272]
+layout_mode = 0
+offset_left = 492.0
+offset_top = 247.0
+offset_right = 670.0
+offset_bottom = 292.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 22
+text = "multiplayer"
+horizontal_alignment = 1
+
+[node name="Title2" type="Label" parent="." unique_id=1372419697]
+layout_mode = 0
+offset_left = 784.0
+offset_top = 327.0
+offset_right = 967.0
+offset_bottom = 372.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 22
+text = "<--- Click this first"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/MarginContainer/ButtonsVBox/Server" to="." method="_on_server_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/MarginContainer/ButtonsVBox/Client" to="." method="_on_client_pressed"]
